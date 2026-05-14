@@ -411,14 +411,16 @@
                 </div>
                 <div>
                     <h4 class="font-bold text-coffee-dark mb-4">Berlangganan</h4>
-                    <p class="text-sm text-coffee-dark opacity-80 mb-4">Dapatkan info promo terbaru.</p>
-                    <form onsubmit="event.preventDefault(); showMessage();" class="flex">
-                        <input type="email" placeholder="Email Anda" class="w-full bg-white px-4 py-2 rounded-l-xl focus:outline-none border border-coffee-medium focus:border-coffee-accent">
-                        <button type="submit" class="bg-coffee-dark text-white px-4 py-2 rounded-r-xl hover:bg-coffee-accent transition">
-                            <i class="fas fa-paper-plane"></i>
+                    <p class="text-sm text-coffee-dark opacity-80 mb-4">Dapatkan info promo terbaru via WhatsApp.</p>
+                    
+                    <div class="flex">
+                        <input type="email" id="subscriber-email" placeholder="Email Anda" class="w-full bg-white px-4 py-2 rounded-l-xl focus:outline-none border border-coffee-medium focus:border-coffee-accent">
+                        
+                        <button type="button" onclick="sendToWhatsApp()" class="bg-coffee-dark text-white px-4 py-2 rounded-r-xl hover:bg-coffee-accent transition">
+                            <i class="fab fa-whatsapp"></i>
                         </button>
-                    </form>
-                    <div id="subscribe-msg" class="text-xs text-green-600 mt-2 hidden">Terima kasih telah berlangganan!</div>
+                    </div>
+                    <p class="text-[10px] mt-2 opacity-60">*Klik ikon untuk mengirim via WhatsApp</p>
                 </div>
             </div>
             <div class="border-t border-coffee-medium border-opacity-30 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-coffee-dark opacity-70">
@@ -644,6 +646,25 @@
                 startInterval();
             }
         });
+
+        function sendToWhatsApp() {
+            const emailInput = document.getElementById('subscriber-email').value;
+            const phoneNumber = "628983607177"; // Nomor WhatsApp Anda
+            
+            if (emailInput === "") {
+                alert("Silakan masukkan email Anda terlebih dahulu.");
+                return;
+            }
+
+            // Format pesan yang akan terkirim
+            const message = `Halo Affa Coffee, saya ingin berlangganan info promo terbaru. Ini email saya: ${emailInput}`;
+            
+            // Membuat URL WhatsApp
+            const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+            
+            // Membuka WhatsApp di tab baru
+            window.open(whatsappURL, '_blank');
+        }
     </script>
 </body>
 </html>
